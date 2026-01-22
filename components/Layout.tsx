@@ -38,7 +38,7 @@ const Navbar: React.FC<{ darkMode: boolean; toggleTheme: () => void }> = ({ dark
             <Link
               key={link.name}
               to={link.path}
-              className={`text-sm tracking-[0.2em] uppercase font-medium transition-colors hover:text-amber-600 ${location.pathname === link.path ? 'text-amber-600 underline underline-offset-8' : ''}`}
+              className={`text-sm tracking-[0.2em] uppercase font-medium transition-colors hover:text-amber-600 ${location.pathname === link.path ? 'text-amber-600 underline underline-offset-8 decoration-2' : ''}`}
             >
               {link.name}
             </Link>
@@ -46,9 +46,9 @@ const Navbar: React.FC<{ darkMode: boolean; toggleTheme: () => void }> = ({ dark
           <button 
             onClick={toggleTheme} 
             aria-label="Toggle theme"
-            className="p-2 rounded-full hover:bg-stone-200/20 transition-colors"
+            className="p-2 rounded-full hover:bg-stone-500/10 transition-colors"
           >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {darkMode ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-stone-600" />}
           </button>
           <Link to="/reservations" className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-sm text-sm tracking-widest uppercase transition-all active:scale-95 shadow-lg shadow-amber-900/20">
             Book Now
@@ -57,8 +57,8 @@ const Navbar: React.FC<{ darkMode: boolean; toggleTheme: () => void }> = ({ dark
 
         {/* Mobile Toggle */}
         <div className="lg:hidden flex items-center space-x-4">
-           <button onClick={toggleTheme} aria-label="Toggle theme" className="p-2 rounded-full hover:bg-stone-200/20">
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+           <button onClick={toggleTheme} aria-label="Toggle theme" className="p-2 rounded-full hover:bg-stone-500/10">
+            {darkMode ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-stone-600" />}
           </button>
           <button onClick={() => setIsOpen(!isOpen)} aria-label="Open menu">
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -163,8 +163,8 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center text-xs tracking-widest uppercase">
         <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</p>
         <div className="flex space-x-6 mt-4 md:mt-0">
-          <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          <a href="#" className="hover:text-white transition-colors text-[10px]">Privacy Policy</a>
+          <a href="#" className="hover:text-white transition-colors text-[10px]">Terms of Service</a>
         </div>
       </div>
     </footer>
@@ -181,17 +181,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      document.body.classList.remove('bg-stone-50', 'text-stone-900');
-      document.body.classList.add('bg-stone-950', 'text-stone-100');
     } else {
       document.documentElement.classList.remove('dark');
-      document.body.classList.remove('bg-stone-950', 'text-stone-100');
-      document.body.classList.add('bg-stone-50', 'text-stone-900');
     }
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen flex flex-col transition-colors duration-500">
+    <div className="min-h-screen flex flex-col transition-colors duration-500 bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
       <Navbar darkMode={darkMode} toggleTheme={() => setDarkMode(!darkMode)} />
       <main id="main-content" className="flex-grow">
         {children}
