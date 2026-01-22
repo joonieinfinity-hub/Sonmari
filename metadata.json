@@ -1,0 +1,7 @@
+{
+  "name": "Sonmari - Premium Korean Fusion & Sushi Bar",
+  "description": "A high-end, responsive restaurant website for Sonmari, featuring Korean-inspired design, interactive menus, reservations, and a dedicated blog.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
