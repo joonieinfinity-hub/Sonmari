@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sonmari | Contemporary Korean Fusion & Hand-Roll Bar</title>
+    <meta name="description" content="Experience the best Korean-inspired sushi and hand-rolls in Los Angeles at Sonmari. Located on Sunset Blvd, we offer a modern fusion dining experience." />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -31,10 +32,24 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #555;
       }
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #d97706;
+        color: white;
+        padding: 8px;
+        z-index: 100;
+        transition: top 0.3s;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
     </style>
   <script type="importmap">
 {
   "imports": {
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
@@ -45,6 +60,7 @@
 </script>
 </head>
   <body class="bg-stone-50 text-stone-900 transition-colors duration-300">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="root"></div>
   </body>
 </html>

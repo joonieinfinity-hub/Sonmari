@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Instagram, Facebook, Twitter, Sun, Moon, MapPin, Phone, Clock, ChevronRight } from 'lucide-react';
+import { Menu, X, Instagram, Facebook, Music2 as Tiktok, Sun, Moon, MapPin, Phone, Clock, ChevronRight } from 'lucide-react';
 import { SITE_CONFIG } from '../constants';
 
 const Navbar: React.FC<{ darkMode: boolean; toggleTheme: () => void }> = ({ darkMode, toggleTheme }) => {
@@ -26,7 +26,7 @@ const Navbar: React.FC<{ darkMode: boolean; toggleTheme: () => void }> = ({ dark
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? (darkMode ? 'bg-stone-900/95 shadow-xl py-3' : 'bg-white/95 shadow-lg py-3') : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? (darkMode ? 'bg-stone-900/95 shadow-xl py-3' : 'bg-white/95 shadow-lg py-3') : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="text-3xl font-serif tracking-widest font-bold uppercase transition-colors hover:text-amber-600">
           {SITE_CONFIG.name}
@@ -38,40 +38,44 @@ const Navbar: React.FC<{ darkMode: boolean; toggleTheme: () => void }> = ({ dark
             <Link
               key={link.name}
               to={link.path}
-              className={`text-sm tracking-[0.2em] uppercase font-medium transition-colors hover:text-amber-600 ${location.pathname === link.path ? 'text-amber-600' : ''}`}
+              className={`text-sm tracking-[0.2em] uppercase font-medium transition-colors hover:text-amber-600 ${location.pathname === link.path ? 'text-amber-600 underline underline-offset-8' : ''}`}
             >
               {link.name}
             </Link>
           ))}
-          <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-stone-200/20 transition-colors">
+          <button 
+            onClick={toggleTheme} 
+            aria-label="Toggle theme"
+            className="p-2 rounded-full hover:bg-stone-200/20 transition-colors"
+          >
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <Link to="/reservations" className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-sm text-sm tracking-widest uppercase transition-transform active:scale-95">
+          <Link to="/reservations" className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-sm text-sm tracking-widest uppercase transition-all active:scale-95 shadow-lg shadow-amber-900/20">
             Book Now
           </Link>
         </div>
 
         {/* Mobile Toggle */}
         <div className="lg:hidden flex items-center space-x-4">
-           <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-stone-200/20">
+           <button onClick={toggleTheme} aria-label="Toggle theme" className="p-2 rounded-full hover:bg-stone-200/20">
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <button onClick={() => setIsOpen(!isOpen)}>
+          <button onClick={() => setIsOpen(!isOpen)} aria-label="Open menu">
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-0 z-40 bg-stone-900 text-white transition-transform duration-500 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`lg:hidden fixed inset-0 z-40 bg-stone-900 text-white transition-transform duration-500 ease-in-out transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full justify-center items-center space-y-8 p-6">
-           <button className="absolute top-6 right-6" onClick={() => setIsOpen(false)}><X size={32} /></button>
+           <button className="absolute top-6 right-6" onClick={() => setIsOpen(false)} aria-label="Close menu"><X size={32} /></button>
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
               onClick={() => setIsOpen(false)}
-              className="text-2xl tracking-[0.3em] font-serif uppercase hover:text-amber-500"
+              className="text-2xl tracking-[0.3em] font-serif uppercase hover:text-amber-500 transition-colors"
             >
               {link.name}
             </Link>
@@ -95,13 +99,13 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         <div className="space-y-6">
           <h2 className="text-3xl font-serif text-white tracking-widest">{SITE_CONFIG.name}</h2>
-          <p className="text-sm leading-relaxed max-w-xs">
+          <p className="text-sm leading-relaxed max-w-xs text-stone-400">
             Blending contemporary Korean flavors with the precise art of sushi hand-rolls. Experience Sunset Boulevard's finest fusion.
           </p>
           <div className="flex space-x-4">
-            <a href={SITE_CONFIG.socialLinks.instagram} className="hover:text-amber-500 transition-colors"><Instagram size={20}/></a>
-            <a href={SITE_CONFIG.socialLinks.facebook} className="hover:text-amber-500 transition-colors"><Facebook size={20}/></a>
-            <a href={SITE_CONFIG.socialLinks.tiktok} className="hover:text-amber-500 transition-colors"><Twitter size={20}/></a>
+            <a href={SITE_CONFIG.socialLinks.instagram} aria-label="Instagram" className="hover:text-amber-500 transition-colors"><Instagram size={20}/></a>
+            <a href={SITE_CONFIG.socialLinks.facebook} aria-label="Facebook" className="hover:text-amber-500 transition-colors"><Facebook size={20}/></a>
+            <a href={SITE_CONFIG.socialLinks.tiktok} aria-label="TikTok" className="hover:text-amber-500 transition-colors"><Tiktok size={20}/></a>
           </div>
         </div>
 
@@ -118,11 +122,11 @@ const Footer: React.FC = () => {
             </li>
             <li className="flex items-center space-x-3">
               <Clock size={18} className="text-amber-500 shrink-0" />
-              <div>
+              <div className="space-y-1">
                 {Object.entries(SITE_CONFIG.hours).map(([day, time]) => (
-                  <div key={day} className="flex justify-between w-full min-w-[180px]">
+                  <div key={day} className="flex justify-between w-full min-w-[200px]">
                     <span className="font-semibold">{day}:</span>
-                    <span>{time}</span>
+                    <span className="text-stone-400">{time}</span>
                   </div>
                 ))}
               </div>
@@ -142,14 +146,14 @@ const Footer: React.FC = () => {
 
         <div className="space-y-6">
           <h3 className="text-lg font-medium text-white tracking-widest uppercase">Newsletter</h3>
-          <p className="text-sm">Join our list for exclusive event invitations and seasonal menu reveals.</p>
-          <form className="flex">
+          <p className="text-sm text-stone-400">Join our list for exclusive event invitations and seasonal menu reveals.</p>
+          <form className="flex border-b border-stone-700 focus-within:border-amber-500 transition-colors">
             <input 
               type="email" 
               placeholder="Your email" 
-              className="bg-stone-800 border-none px-4 py-2 w-full text-sm focus:ring-1 focus:ring-amber-500 outline-none" 
+              className="bg-transparent border-none px-4 py-2 w-full text-sm outline-none" 
             />
-            <button className="bg-amber-600 px-4 py-2 text-white hover:bg-amber-700 transition-colors">
+            <button className="text-amber-500 px-4 py-2 hover:text-amber-400 transition-colors" aria-label="Subscribe">
               <ChevronRight size={20} />
             </button>
           </form>
@@ -177,17 +181,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      document.body.className = 'bg-stone-950 text-stone-100 transition-colors duration-300';
+      document.body.classList.remove('bg-stone-50', 'text-stone-900');
+      document.body.classList.add('bg-stone-950', 'text-stone-100');
     } else {
       document.documentElement.classList.remove('dark');
-      document.body.className = 'bg-stone-50 text-stone-900 transition-colors duration-300';
+      document.body.classList.remove('bg-stone-950', 'text-stone-100');
+      document.body.classList.add('bg-stone-50', 'text-stone-900');
     }
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col transition-colors duration-500">
       <Navbar darkMode={darkMode} toggleTheme={() => setDarkMode(!darkMode)} />
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         {children}
       </main>
       <Footer />
